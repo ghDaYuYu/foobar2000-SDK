@@ -996,13 +996,14 @@ void CListControlHeaderImpl::RenderItemBackground(CDCHandle p_dc,const CRect & p
 		__super::RenderItemBackground(p_dc, p_itemRect, item, bkColor);
 	} else {
 		auto cnt = this->GetColumnCount();
+		auto order = this->GetColumnOrderArray();
 		uint32_t x = p_itemRect.left;
 		for( size_t walk = 0; walk < cnt; ) {
-			auto span = this->GetSubItemSpan( item, walk );
+			auto span = this->GetSubItemSpan( item, order[walk] );
 			PFC_ASSERT( span > 0 );
 			uint32_t width = 0;
 			for( size_t walk2 = 0; walk2 < span; ++ walk2 ) {
-				width += this->GetSubItemWidth( walk + walk2 );
+				width += this->GetSubItemWidth( order[walk] + walk2 );
 			}
 			CRect rc = p_itemRect;
 			rc.left = x;
